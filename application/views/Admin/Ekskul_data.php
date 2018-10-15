@@ -29,9 +29,11 @@
                         </script> 
               </div>
              
-              
+             
 
               <div class="box-body">
+
+              
                 <div id="interactive">
                     <?=$this->session->flashdata('notif')?>
                     <table id="example1" class="table table-striped table-bordered" style="width:100%">

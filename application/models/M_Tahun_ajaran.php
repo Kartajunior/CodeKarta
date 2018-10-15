@@ -21,6 +21,13 @@ class M_Tahun_ajaran extends CI_Model {
 	{
 		$query = $this->db->get_where('tahun_ajaran',array('status' => 'Aktif'));
 		return $query->result();
+    }
+    
+    function cek_tahun($t_ajaran="")
+	{
+		$query = $this->db->get_where('tahun_ajaran',array('id'=> $t_ajaran, 'status'=> 'Aktif'));
+		$query = $query->result_array();
+		return $query;
 	}
 
 }

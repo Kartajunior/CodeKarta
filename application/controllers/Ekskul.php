@@ -7,7 +7,8 @@ class Ekskul extends CI_Controller {
 	{
 		parent:: __construct();
         $this->load->library('datatables');
-        $this->load->model('M_Ekskul');
+		$this->load->model('M_Ekskul');
+		$this->load->model('M_Tahun_Ajaran');
 	}
 
 	public function index()
@@ -67,6 +68,7 @@ class Ekskul extends CI_Controller {
 
 	public function EkskulData()
 	{
+		
 		$data['judul']		='Ekstrakurikuler';
 		$this->template->load('Admin/layout','Admin/Ekskul_Data',$data);
     }
@@ -76,5 +78,18 @@ class Ekskul extends CI_Controller {
 	    $this->load->library('datatables');
 		header('Content-Type: application/json');
 		echo $this->M_Ekskul->get_all_data_ekskul();
+	}
+	
+	public function EkskulAnggota()
+	{
+		$data['judul']		='Ekstrakurikuler';
+		$this->template->load('Admin/layout','Admin/Ekskul_Anggota',$data);
+    }
+
+     
+    public function EkskulAnggotaJson() {
+	    $this->load->library('datatables');
+		header('Content-Type: application/json');
+		echo $this->M_Ekskul->get_all_data_ekskul_anggota();
     }
 }

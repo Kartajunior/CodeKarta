@@ -19,10 +19,15 @@
             <!-- interactive chart -->
             <div class="box box-primary">
               <div class="box-header with-border">
+               <form role="form" action="<?php echo base_url('Home/Cek_Tahun');?>" method="post">
+
+                
                 <div class="form-group col-md-2">
                   Tahun Ajaran :
-                </div> 
-                <div class="form-group col-md-3">
+                </div>  
+               
+                <div class="form-group col-md-2">
+              
                   <select class="text-center form-control" name="t_ajaran">
                     <option value="">Select Tahun Ajaran</option>
                     <?php foreach ($m_tahun as $row){ ?>
@@ -32,8 +37,13 @@
 
                     <?php } ?>
                   </select>
-       
+                     
                 </div>
+                     <div class="form-group col-md-2">
+                       <button type="submit" class="btn btn-primary" id="submit" name="submit">Pilih</button>
+                      </div>
+                
+                </form>
                 
                   <button type="button" class="btn btn-info btn-lrg ajax pull-right" title="Refresh" onclick="location.reload()">
                     <i class="fa fa-refresh"></i></button>
@@ -47,7 +57,7 @@
              
               <div class="box-body">
                 <div id="interactive">
-                   
+                   <?=$this->session->flashdata('notif')?>
 
                 </div>
               </div>

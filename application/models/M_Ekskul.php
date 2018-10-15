@@ -18,12 +18,26 @@ class M_Ekskul extends CI_Model {
   }
   
   public function get_all_data_ekskul() {
+      $th_ajar = $this->session->userdata('th_ajaran');
         $this->datatables->select('a.id,a.id_tahun_ajaran,a.id_ekskul,a.id_guru,b.nama_ekskul,c.nama_ta,c.semester,d.nama_lengkap as nama_guru');
         $this->datatables->from('ekskul_detail a');
         $this->datatables->join('ekskul b', 'a.id_ekskul = b.id');
         $this->datatables->join('tahun_ajaran c', 'a.id_tahun_ajaran = c.id');
         $this->datatables->join('guru d', 'a.id_guru = d.id');
+        $this->datatables->where('c.id', $th_ajar);
         $this->datatables->add_column('Action','<a href="javascript:void(0);" class="edit_record btn btn-info btn-xs" data-id="$1" >Edit</a>  <a href="javascript:void(0);" class="hapus_record btn btn-danger btn-xs" data-id="$1" >Hapus</a>','id,id_tahun_ajaran,id,guru,id_ekskul');
+        return $this->datatables->generate();
+    }
+
+     public function get_all_data_ekskul_anggota() {
+        $this->datatables->select('');
+        $this->datatables->from('ekskul_anggota a');
+        $this->datatables->join('ekskul_detail b', 'a.id_ekskul_detail = b.id');
+        $this->datatables->join('ekskul c', 'b.id_ekskul = c.id');
+        $this->datatables->join('tahun_ajaran d', 'b.id_tahun_ajaran = d.id');
+        $this->datatables->join('guru e', 'b.id_guru = e.id');
+        $this->datatables->join('siswa f', 'a.nisn = f.nisn');
+        $this->datatables->add_column('Action','<a href="javascript:void(0);" class="edit_record btn btn-info btn-xs" data-id="$1" >Edit</a>  <a href="javascript:void(0);" class="hapus_record btn btn-danger btn-xs" data-id="$1" >Hapus</a>','id,id_ekskul_detail,nisn');
         return $this->datatables->generate();
     }
 
