@@ -4,10 +4,11 @@ section .header-custom-box{
   margin: 10px;
 }
 section .header-custom-box .table-judul-konten{
- /* border: 1px solid #5590BB;*/
+  /*border: 2px solid #F5F5F5;*/
   margin-top:10px; 
   padding: 10px;
   width: 100%;
+  font-weight: bold;
 }
 </style>
 
@@ -32,8 +33,7 @@ section .header-custom-box .table-judul-konten{
             <!-- interactive chart -->
             <div class="box box-primary">
               <div class="box-header with-border">
-                <a class="btn btn-success btn-sm" id="btn-Create" title="New" data-toggle="modal" data-target="#myModalAdd"><span class="glyphicon glyphicon-plus"></span></a>
-
+               <?=$this->session->flashdata('notif')?>
                     <button type="button" class="btn btn-info btn-lrg ajax pull-right" title="Refresh" onclick="location.reload()">
                     <i class="fa fa-refresh"></i></button>
                         <script type="text/javascript">
@@ -43,8 +43,8 @@ section .header-custom-box .table-judul-konten{
                         </script> 
               </div>
              
-              <div class="container-fluid header-custom-box">
-                 <form action="<?php echo base_url().'Kelas_anggota/getByKelas'; ?>" method="post">  
+             <div class="container-fluid header-custom-box">
+                 <form action="<?php echo base_url().'Absensi/GetByKelas'; ?>" method="post">  
                
                     <div class="col-md-3">
                         <select class="text-center form-control" id="kelas" name="kelas"  onchange="selectKelas()">
@@ -112,48 +112,62 @@ section .header-custom-box .table-judul-konten{
 
                <?php endforeach; ?>
               </div>
-             
-
+              
               <div class="box-body">
+
                 <div id="interactive">
 
-                   
+                  <form action="<?php echo base_url().'Absensi/Update'; ?>" method="post">
 
-                    <?=$this->session->flashdata('notif')?>
+
                     <table id="example1" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                         <tr>
-                            <th>Kelas</th>
-                            <th>Nama Kelas</th>
                             <th>NISN</th>
-                            <th>Nama Lengkap</th> 
-                            <th>JK</th>
-                            <th>Action</th>   
+                            <th>NIS</th>
+                            <th>Nama Lengkap</th>
+                            <th>Sakit</th> 
+                            <th>Ijin</th>
+                            <th>Alpa</th>    
                         </tr>
                         </thead>
                         <tbody>
-                          <?php foreach ($m_kelas_anggota as $row): ?>
+                          <?php foreach ($m_absensi as $row): ?>
                         <tr>
                           
-                          <td><?php echo $row->kelas;?></td>
-                          <td><?php echo $row->nama_kelas;?></td>
+
                           <td><?php echo $row->nisn;?></td>
+                          <td><?php echo $row->nis;?></td>
                           <td><?php echo $row->nama_siswa;?></td>
-                          <td><?php echo $row->jk;?></td>
                           <td>
-                              <a href="<?php echo base_url('Kelas_anggota/view/'.$row->id)?>" title="Click to View Detail" class="btn btn-info"><i class="fa fa-eye"></i></a>
-                              <a href="<?php echo base_url('Kelas_anggota/delete/'.$row->id)?>" title="Click to Delete" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                            
+                               <input type="hidden" id="id" name="id[]" value="<?php echo $row->id; ?>">
+                               
+                               <input type="text" name="sakit[]" id="sakit" class="form-control" style="width: 50px; height: 25px;" value="<?php echo $row->sakit; ?>"> 
                           </td>
+                          <td> 
+                              
+                              <input type="text" name="ijin[]" id="ijin" class="form-control" style="width: 50px; height: 25px;" value="<?php echo $row->ijin; ?>"> 
+                          </td>
+                          <td> 
+                           
+                              <input type="text" name="alpa[]" id="alpa" class="form-control" style="width: 50px; height: 25px;" value="<?php echo $row->alpa; ?>"> 
+                          </td>
+                                
                         </tr>
                          <?php endforeach ?>
                         </tbody>
                         
                     </table>
-                     <p><?php echo $links; ?></p>
+
+                     
+                         <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Update Nilai</button> 
+                  
+
+                   </form>
                 </div>
               </div>
               <!-- /.box-body-->
+               
             </div>
             <!-- /.box -->
           </div>
@@ -168,7 +182,10 @@ section .header-custom-box .table-judul-konten{
  <script type="text/javascript">
     $(document).ready(function(){ 
         var table = $('#example1').DataTable({
-      
+        // "bPaginate": false,
+        //         "bStateSave": true,
+        //         "bAutoWidth": false,
+        //         "bFilter": false
       })
     })
     
@@ -179,7 +196,7 @@ section .header-custom-box .table-judul-konten{
     {
        var kelas = $('#kelas').val();
         
-        $.post('<?php echo base_url();?>Kelas_anggota/getNamaKelas/',
+        $.post('<?php echo base_url();?>Absensi/getNamaKelas/',
       {
         kelas:kelas
         
@@ -192,4 +209,5 @@ section .header-custom-box .table-judul-konten{
      
     }
 </script>
+
 

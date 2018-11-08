@@ -70,27 +70,5 @@ class Kelas extends CI_Controller {
 		redirect('Kelas');
 	}
 
-	public function DataKelasJson() {
-	    $this->load->library('datatables');
-		header('Content-Type: application/json');
-		echo $this->M_Kelas->get_all_datakelas();
-    }
-
-    public function KelasData()
-	{
-		$data['judul']		='Kelas Data';
-		$this->template->load('Admin/layout','Admin/Kelas_Data',$data);
-	}
 	
-	public function DataKelasAnggotaJson() {
-	    $this->load->library('datatables');
-		header('Content-Type: application/json');
-		echo $this->M_Kelas->get_all_DataKelasAnggota();
-    }
-
-    public function KelasDataAnggota()
-	{
-		$data['judul']		='Data Anggota Kelas ';
-		$this->template->load('Admin/layout','Admin/Kelas_Anggota',$data);
-    }
 }

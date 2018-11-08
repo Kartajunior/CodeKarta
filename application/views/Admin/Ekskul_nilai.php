@@ -4,10 +4,11 @@ section .header-custom-box{
   margin: 10px;
 }
 section .header-custom-box .table-judul-konten{
- /* border: 1px solid #5590BB;*/
+  /*border: 2px solid #F5F5F5;*/
   margin-top:10px; 
   padding: 10px;
   width: 100%;
+  font-weight: bold;
 }
 </style>
 
@@ -32,7 +33,7 @@ section .header-custom-box .table-judul-konten{
             <!-- interactive chart -->
             <div class="box box-primary">
               <div class="box-header with-border">
-                <a class="btn btn-success btn-sm" id="btn-Create" title="New" data-toggle="modal" data-target="#myModalAdd"><span class="glyphicon glyphicon-plus"></span></a>
+               
 
                     <button type="button" class="btn btn-info btn-lrg ajax pull-right" title="Refresh" onclick="location.reload()">
                     <i class="fa fa-refresh"></i></button>
@@ -44,116 +45,126 @@ section .header-custom-box .table-judul-konten{
               </div>
              
               <div class="container-fluid header-custom-box">
-                 <form action="<?php echo base_url().'Kelas_anggota/getByKelas'; ?>" method="post">  
+                 <form action="<?php echo base_url().'Ekskul_nilai/getByEkskul'; ?>" method="post">  
                
                     <div class="col-md-3">
-                        <select class="text-center form-control" id="kelas" name="kelas"  onchange="selectKelas()">
-                          <option value=" ">Select Kelas</option>
-                              <?php foreach($m_kel as $row){ ?>
-                                <?php $selected = (isset($_REQUEST['kelas']) && $_REQUEST['kelas'] == $row->kelas)?'selected="selected"':''; ?>
-                                <option value="<?php echo $row->kelas;?>" <?php echo $selected ?>>Kelas <?php echo $row->kelas; ?></option>
+                        <select class="text-center form-control" id="nama_ekskul" name="nama_ekskul" >
+                           <option value=" ">Select Ekskul</option>
+                              <?php foreach($m_ekskul as $row){ ?>
+                                <?php $selected = (isset($_REQUEST['nama_ekskul']) && $_REQUEST['nama_ekskul'] == $row->nama_ekskul)?'selected="selected"':''; ?>
+                                <option value="<?php echo $row->id;?>" <?php echo $selected ?>> <?php echo $row->nama_ekskul; ?></option>
                               <?php } ?>
 
                         </select>
                     </div>
 
-                    <div class="col-md-3">
-                        <select class="text-center form-control" id="nama_kelas" name="nama_kelas" >
-                            <option value=""> Select Nama Kelas </option>
-                           
-                        </select>
-                    </div>      
-
+                  
                     <div class="col-md-2">
                         <button type="submit" class="btn btn-primary" id="submit" name="submit">Pilih</button>
                     </div>    
 
                 </form>
 
+
                  <div class="col-md-12 table-judul-konten">
-                  <?php foreach ($header as $wal): ?>
+                    <?php foreach ($header as $row): ?>
+
                     <div class="col-md-6">
+
                         <div class="col-md-3">
-                        Kelas 
+                        Eksktrakurikuler 
                         </div>
                         <div class="col-md-3">
-                        : <?php echo $wal->kelas; ?>
+                          
+                        :  <?php echo $row->nama_ekskul; ?>
                         </div>
                     </div>
                    
                     <div class="col-md-6">
                         <div class="col-md-3">
-                        Wali Kelas 
+                        Wali Pengampu 
                         </div>
                         <div class="col-md-3">
-                        :   
-                            <?php echo $wal->nama_guru; ?>
+                        : 
+                            <?php echo $row->nama_guru; ?>
                            
                       
                         </div>
                     </div>
-                        <div class="col-md-6">
-                        <div class="col-md-3">
-                        Nama Kelas 
-                        </div>
-                        <div class="col-md-3">
-                        :  <?php echo $wal->nama_kelas; ?>
-                        </div>
-                    </div>
+                     
                      <div class="col-md-6">
                         <div class="col-md-3">
                         Tahun Ajaran 
                         </div>
+                       
                         <div class="col-md-3">
-                        : <?php echo $wal->nama_ta; ?>
+                        : <?php echo $row->nama_ta; ?> <?php echo $row->semester; ?>
                         </div>
+                      
                     </div>
                  </div>
 
-               <?php endforeach; ?>
+                 <?php endforeach; ?>
               </div>
              
 
               <div class="box-body">
+
                 <div id="interactive">
 
-                   
-
-                    <?=$this->session->flashdata('notif')?>
+                    
+                    <form action="<?php echo base_url().'Ekskul_nilai/Update'; ?>" method="post">
                     <table id="example1" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                         <tr>
-                            <th>Kelas</th>
-                            <th>Nama Kelas</th>
+                            <th>Ekskul</th>
                             <th>NISN</th>
                             <th>Nama Lengkap</th> 
-                            <th>JK</th>
-                            <th>Action</th>   
+                            <th width="20px">JK</th>
+                            <th width="50px">Nilai</th>
+                            
                         </tr>
                         </thead>
                         <tbody>
-                          <?php foreach ($m_kelas_anggota as $row): ?>
+                          <?php foreach ($m_ekskul_nilai as $row): ?>
                         <tr>
                           
-                          <td><?php echo $row->kelas;?></td>
-                          <td><?php echo $row->nama_kelas;?></td>
+                          <td><?php echo $row->nama_ekskul;?></td>
                           <td><?php echo $row->nisn;?></td>
                           <td><?php echo $row->nama_siswa;?></td>
                           <td><?php echo $row->jk;?></td>
                           <td>
-                              <a href="<?php echo base_url('Kelas_anggota/view/'.$row->id)?>" title="Click to View Detail" class="btn btn-info"><i class="fa fa-eye"></i></a>
-                              <a href="<?php echo base_url('Kelas_anggota/delete/'.$row->id)?>" title="Click to Delete" class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                            
+                              <?php if (empty($row->nilai)): ?>
+
+                               <input type="hidden" id="id_nilai" name="id_nilai[]" value="<?php echo $row->id_nilai; ?>">
+                               <input type="hidden" id="ekskul_anggota_id" name="ekskul_anggota_id[]" value="<?php echo $row->ekskul_anggota_id; ?>">
+                               <input type="text" name="nilai[]" id="nilai" class="form-control" style="width: 50px; height: 25px; ">   
+
+                              <?php else: ?> 
+
+                                  <span class="label label-info"> <?php echo $row->nilai;?> </span> 
+                               
+                               
+                              <?php endif ?>
+                              
                           </td>
+                      
                         </tr>
                          <?php endforeach ?>
                         </tbody>
                         
                     </table>
+                    <?php if (empty($row->nilai)): ?>
+                         <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> Update Nilai</button> 
+                    <?php endif ?>
+                   
                      <p><?php echo $links; ?></p>
+
+                   </form>
                 </div>
               </div>
               <!-- /.box-body-->
+               <?=$this->session->flashdata('notif')?>
             </div>
             <!-- /.box -->
           </div>
@@ -174,22 +185,5 @@ section .header-custom-box .table-judul-konten{
     
   </script>
 
-<script>
-  function selectKelas()
-    {
-       var kelas = $('#kelas').val();
-        
-        $.post('<?php echo base_url();?>Kelas_anggota/getNamaKelas/',
-      {
-        kelas:kelas
-        
-        },
-        function(data) 
-        {
-        
-        $('#nama_kelas').html(data);
-        }); 
-     
-    }
-</script>
+
 

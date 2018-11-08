@@ -93,7 +93,7 @@
     },
     processing: true,
     serverSide: true,
-    ajax: {"url": "<?php echo base_url().'index.php/Kelas/DataKelasJson'?>", "type": "POST"},
+    ajax: {"url": "<?php echo base_url().'index.php/Kelas_Data/Json'?>", "type": "POST"},
     columns: [
                 
                 {"data": "kelas"},

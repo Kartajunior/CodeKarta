@@ -66,19 +66,7 @@ class Ekskul extends CI_Controller {
 		redirect('ekskul');
 	}
 
-	public function EkskulData()
-	{
-		
-		$data['judul']		='Ekstrakurikuler';
-		$this->template->load('Admin/layout','Admin/Ekskul_Data',$data);
-    }
-
-     
-    public function EkskulDataJson() {
-	    $this->load->library('datatables');
-		header('Content-Type: application/json');
-		echo $this->M_Ekskul->get_all_data_ekskul();
-	}
+	
 	
 	public function EkskulAnggota()
 	{

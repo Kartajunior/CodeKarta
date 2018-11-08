@@ -142,8 +142,8 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<?php echo base_url().'Kelas/KelasData'?>"><i class="fa fa-circle-o"></i> Kelas Data</a></li>
-                <li><a href="<?php echo base_url().'Kelas/KelasDataAnggota'?>"><i class="fa fa-circle-o"></i> Kelas Anggota</a></li>
+                <li><a href="<?php echo base_url().'Kelas_Data'?>"><i class="fa fa-circle-o"></i> Kelas Data</a></li>
+                <li><a href="<?php echo base_url().'Kelas_Anggota'?>"><i class="fa fa-circle-o"></i> Kelas Anggota</a></li>
               </ul>
             </li>
 
@@ -154,13 +154,15 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<?php echo base_url().'Ekskul/EkskulData'?>"><i class="fa fa-circle-o"></i> Ekskul Data</a></li>
-                <li><a href="#"><i class="fa fa-circle-o"></i> Ekskul Anggota</a></li>
-                <li><a href="#"><i class="fa fa-circle-o"></i> Ekskul Abseni</a></li>
-                <li><a href="#"><i class="fa fa-circle-o"></i> Ekskul Nilai</a></li>
+                <li><a href="<?php echo base_url().'Ekskul_Data'?>"><i class="fa fa-circle-o"></i> Ekskul Data</a></li>
+                <li><a href="<?php echo base_url().'Ekskul_Anggota'?>"><i class="fa fa-circle-o"></i> Ekskul Anggota</a></li>
+                
+                <li><a href="<?php echo base_url().'Ekskul_Nilai'?>"><i class="fa fa-circle-o"></i> Ekskul Nilai</a></li>
               </ul>
             </li>
-           
+            
+            <li><a href="<?php echo base_url().'Absensi'?>"><i class="fa fa-circle-o"></i> Absensi</a></li>  
+
           </ul>
         </li>  
       

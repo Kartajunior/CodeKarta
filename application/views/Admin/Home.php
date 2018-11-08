@@ -31,7 +31,6 @@
                   <select class="text-center form-control" name="t_ajaran">
                     <option value="">Select Tahun Ajaran</option>
                     <?php foreach ($m_tahun as $row){ ?>
-          
                     <?php $selected = (isset($_REQUEST['t_ajaran']) && $_REQUEST['t_ajaran'] == $row->id)?'selected="selected"':''; ?>
                     <option value="<?php echo $row->id;?>" <?php echo $selected ?>><?php echo $row->nama_ta; ?> - <?php echo $row->semester; ?></option>
 

@@ -94,7 +94,7 @@
     },
     processing: true,
     serverSide: true,
-    ajax: {"url": "<?php echo base_url().'index.php/Ekskul/EkskulDataJson'?>", "type": "POST"},
+    ajax: {"url": "<?php echo base_url().'index.php/Ekskul_data/json'?>", "type": "POST"},
     columns: [
                 
                 {"data": "nama_ekskul"},

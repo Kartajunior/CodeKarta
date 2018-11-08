@@ -30,4 +30,6 @@ class M_Tahun_ajaran extends CI_Model {
 		return $query;
 	}
 
+    
+
 }

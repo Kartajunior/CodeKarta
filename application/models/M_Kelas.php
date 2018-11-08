@@ -30,20 +30,133 @@ class M_Kelas extends CI_Model {
             <a href="javascript:void(0);" class="hapus_record btn btn-danger btn-xs" data-id="$1" data-id_tahun_ajaran="$2" data-id_kelas="$3" data-id_guru="$4">Hapus</a>','id,id_tahun_ajaran,id_kelas,id_guru');
         return $this->datatables->generate();
     }
+    
+    public function getAllDataKelasAnggota($limit, $offset)
+    {
+        $th_ajar = $this->session->userdata('th_ajaran');
+        $this->db->select('a.id,a.id_kelas_detail,a.nisn,e.nama_lengkap as nama_siswa,e.jk,f.kelas,f.nama_kelas,d.nama_lengkap as nama_guru');
+        $this->db->from('kelas_anggota a');
+        $this->db->join('kelas_detail b' , 'a.id_kelas_detail = b.id');
+        $this->db->join('tahun_ajaran c' , 'b.id_tahun_ajaran = c.id');
+        $this->db->join('guru d' , 'b.id_guru = d.id');
+        $this->db->join('siswa e' , 'a.nisn = e.nisn');
+        $this->db->join('kelas f' , 'b.id_kelas=f.id');
+        $this->db->where('c.id', $th_ajar);
+        $this->db->order_by('f.kelas','asc');
+        $this->db->limit($limit, $offset);
+        $query = $this->db->get();
+        return $query->result();
+    }
 
-    public function get_all_DataKelasAnggota() {
+
+    public function get_all_kelas()
+	{
+		$query = $this->db->get('kelas');
+		return $query->result();
+    }
+
+    public function get_kelas()
+	{
+	
+        $this->db->select('*');
+        $this->db->from('kelas');
+        $this->db->group_by('kelas');
+        $query = $this->db->get();
+        return $query->result();
+    }
+     public function get_wali_kelas($kelas, $nama_kelas)
+     {
+        
+        $th_ajar = $this->session->userdata('th_ajaran');
+        $this->db->select('d.nama_lengkap as nama_guru');
+        $this->db->from('kelas_anggota a');
+        $this->db->join('kelas_detail b' , 'a.id_kelas_detail = b.id');
+        $this->db->join('tahun_ajaran c' , 'b.id_tahun_ajaran = c.id');
+        $this->db->join('guru d' , 'b.id_guru = d.id');
+        $this->db->join('siswa e' , 'a.nisn = e.nisn');
+        $this->db->join('kelas f' , 'b.id_kelas=f.id');
+        $this->db->where('c.id', $th_ajar);
+        $this->db->where('f.kelas', $kelas);
+        $this->db->where('f.nama_kelas', $nama_kelas);
+        $this->db->group_by('f.nama_kelas');
+         $query =$this->db->get();
+         return $query->result();
+     }
+    public function get_tahun_ajaran_title()
+    {
+        $th_ajar = $this->session->userdata('th_ajaran');
+        $query = $this->db->get_where('tahun_ajaran',array('status' => 'Aktif', 'id'  => $th_ajar));
+        return $query;
+    }
+    public function get_nama_kelas()
+         {
+            $kelas=$this->input->post("kelas");
+            $query="SELECT * FROM kelas WHERE kelas ='$kelas' ";
+            $user_info = $this->db->query($query);
+            return $user_info;
+          }
+          
+    public function countall()
+    {
+
+       $query = $this->db->get('kelas_detail');
+       return $query->num_rows();
+    }
+
+    //add By APL-SOL
+    public function search_data($kelas, $nama_kelas,$limit, $offset) 
+    {
+
         $th_ajar = $this->session->userdata('th_ajaran');
 
-        $this->datatables->select('a.id,a.id_kelas_detail,a.nisn,e.nama_lengkap as nama_siswa,e.jk,f.kelas,f.nama_kelas,d.nama_lengkap as nama_guru');
-        $this->datatables->from('kelas_anggota a');
-        $this->datatables->join('kelas_detail b' , 'a.id_kelas_detail = b.id');
-        $this->datatables->join('tahun_ajaran c' , 'b.id_tahun_ajaran = c.id');
-        $this->datatables->join('guru d' , 'b.id_guru = d.id');
-        $this->datatables->join('siswa e' , 'a.nisn = e.nisn');
-        $this->datatables->join('kelas f' , 'b.id_kelas=f.id');
-        $this->datatables->where('c.id', $th_ajar);
-        $this->datatables->add_column('Action','<a href="javascript:void(0);" class="edit_record btn btn-info btn-xs" data-id="$1" data-id_tahun_ajaran="$2" data-id_kelas="$3" data-id_guru="$4">Edit</a>  
-            <a href="javascript:void(0);" class="hapus_record btn btn-danger btn-xs" data-id="$1" data-id_tahun_ajaran="$2" data-id_kelas="$3" data-id_guru="$4">Hapus</a>','id,id_kelas_detail,nisn');
-        return $this->datatables->generate();
-    }
+        $this->db->select('a.id,a.id_kelas_detail,a.nisn,e.nama_lengkap as nama_siswa,e.jk,f.kelas,f.nama_kelas,d.nama_lengkap as nama_guru');
+        $this->db->from('kelas_anggota a');
+        $this->db->join('kelas_detail b' , 'a.id_kelas_detail = b.id');
+        $this->db->join('tahun_ajaran c' , 'b.id_tahun_ajaran = c.id');
+        $this->db->join('guru d' , 'b.id_guru = d.id');
+        $this->db->join('siswa e' , 'a.nisn = e.nisn');
+        $this->db->join('kelas f' , 'b.id_kelas=f.id');
+        $this->db->where('c.id', $th_ajar);
+    
+        $this->db->where('f.kelas', $kelas);
+        $this->db->where('f.nama_kelas', $nama_kelas); 
+        $this->db->limit($limit, $offset);
+        $query = $this->db->get();
+        if($query->num_rows() > 0 ){
+         return $query->result();
+        }else{
+        return $query->result();
+        }
+     }
+    
+    //end add
+
+      //add By APL-SOL
+    public function getHeaderKelas($kelas, $nama_kelas) 
+    {
+
+        $th_ajar = $this->session->userdata('th_ajaran');
+
+        $this->db->select('a.id,a.id_kelas_detail,a.nisn,e.nama_lengkap as nama_siswa,e.jk,f.kelas,f.nama_kelas,d.nama_lengkap as nama_guru, c.nama_ta');
+        $this->db->from('kelas_anggota a');
+        $this->db->join('kelas_detail b' , 'a.id_kelas_detail = b.id');
+        $this->db->join('tahun_ajaran c' , 'b.id_tahun_ajaran = c.id');
+        $this->db->join('guru d' , 'b.id_guru = d.id');
+        $this->db->join('siswa e' , 'a.nisn = e.nisn');
+        $this->db->join('kelas f' , 'b.id_kelas=f.id');
+        $this->db->where('c.id', $th_ajar);
+    
+        $this->db->where('f.kelas', $kelas);
+        $this->db->where('f.nama_kelas', $nama_kelas); 
+        $this->db->group_by('f.nama_kelas');
+        $query = $this->db->get();
+        if($query->num_rows() > 0 ){
+         return $query->result();
+        }else{
+        return $query->result();
+        }
+     }
+    
+    //end add
+
 }
