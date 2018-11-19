@@ -118,7 +118,8 @@
           </a>
           <ul class="treeview-menu">
             <li class="active"><a href="<?php echo base_url().'Ekskul'?>"><i class="fa fa-circle-o"></i> Ekstrakurikuler</a></li>
-            <li><a href="<?php echo base_url().'Guru'?>"><i class="fa fa-circle-o"></i> Guru</a></li>  
+            <li><a href="<?php echo base_url().'Guru'?>"><i class="fa fa-circle-o"></i> Guru</a></li> 
+            <li><a href="<?php echo base_url().'Jadwal'?>"><i class="fa fa-circle-o"></i> Jadwal</a></li>  
             <li><a href="<?php echo base_url().'Kelas'?>"><i class="fa fa-circle-o"></i> Kelas</a></li>
             <li><a href="<?php echo base_url().'Pelajaran'?>"><i class="fa fa-circle-o"></i> Pelajaran</a></li>
             <li><a href="<?php echo base_url().'Siswa'?>"><i class="fa fa-circle-o"></i> Siswa</a></li>

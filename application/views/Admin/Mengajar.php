@@ -33,7 +33,9 @@ section .header-custom-box .table-judul-konten{
             <!-- interactive chart -->
             <div class="box box-primary">
               <div class="box-header with-border">
-               <?=$this->session->flashdata('notif')?>
+
+                 <a class="btn btn-success btn-sm" id="btn-Create" title="New" data-toggle="modal" data-target="#myModalAdd"><span class="glyphicon glyphicon-plus"></span></a>
+              
                     <button type="button" class="btn btn-info btn-lrg ajax pull-right" title="Refresh" onclick="location.reload()">
                     <i class="fa fa-refresh"></i></button>
                         <script type="text/javascript">
@@ -44,10 +46,34 @@ section .header-custom-box .table-judul-konten{
               </div>
              
              <div class="container-fluid header-custom-box">
-                
+             <form action="<?php echo base_url().'Mengajar/getByKelas'; ?>" method="post">  
+               
+                    <div class="col-md-3">
+                        <select class="text-center form-control" id="kelas" name="kelas"  onchange="selectKelas()">
+                          <option value=" ">Select Kelas</option>
+                              <?php foreach($m_kel as $row){ ?>
+                                <?php $selected = (isset($_REQUEST['kelas']) && $_REQUEST['kelas'] == $row->kelas)?'selected="selected"':''; ?>
+                                <option value="<?php echo $row->kelas;?>" <?php echo $selected ?>>Kelas <?php echo $row->kelas; ?></option>
+                              <?php } ?>
 
-            </div>
-              
+                        </select>
+                    </div>
+
+                    <div class="col-md-3">
+                        <select class="text-center form-control" id="nama_kelas" name="nama_kelas" >
+                            <option value=""> Select Nama Kelas </option>
+                           
+                        </select>
+                    </div>      
+
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary" id="submit" name="submit">Pilih</button>
+                    </div>    
+
+                </form>   
+
+             </div>
+               <?=$this->session->flashdata('notif')?>
               <div class="box-body">
 
                 <div id="interactive">
@@ -111,7 +137,7 @@ section .header-custom-box .table-judul-konten{
     {
        var kelas = $('#kelas').val();
         
-        $.post('<?php echo base_url();?>Absensi/getNamaKelas/',
+        $.post('<?php echo base_url();?>Mengajar/getNamaKelas/',
       {
         kelas:kelas
         
