@@ -20,25 +20,24 @@ class M_Kelas extends CI_Model {
     public function get_all_datakelas() {
         $th_ajar = $this->session->userdata('th_ajaran');
 
-        $this->datatables->select('a.id,a.id_tahun_ajaran,a.id_kelas,a.id_guru,b.kelas,b.nama_kelas,c.nama_lengkap,d.semester,d.nama_ta');
+        $this->datatables->select('a.id,a.id_tahun_ajaran,a.id_kelas,b.kelas,b.nama_kelas,d.semester,d.nama_ta');
         $this->datatables->from('kelas_detail a');
         $this->datatables->join('kelas b' , 'a.id_kelas=b.id');
-        $this->datatables->join('guru c', 'a.id_guru=c.id');
         $this->datatables->join('tahun_ajaran d', 'a.id_tahun_ajaran=d.id');
         $this->datatables->where('a.id_tahun_ajaran', $th_ajar);
-        $this->datatables->add_column('Action','<a href="javascript:void(0);" class="edit_record btn btn-info btn-xs" data-id="$1" data-id_tahun_ajaran="$2" data-id_kelas="$3" data-id_guru="$4">Edit</a>  
-            <a href="javascript:void(0);" class="hapus_record btn btn-danger btn-xs" data-id="$1" data-id_tahun_ajaran="$2" data-id_kelas="$3" data-id_guru="$4">Hapus</a>','id,id_tahun_ajaran,id_kelas,id_guru');
+        $this->datatables->add_column('Action','<a href="javascript:void(0);" class="edit_record btn btn-info btn-xs" data-id="$1" data-id_tahun_ajaran="$2" data-id_kelas="$3" >Edit</a>  
+            <a href="javascript:void(0);" class="hapus_record btn btn-danger btn-xs" data-id="$1" data-id_tahun_ajaran="$2" data-id_kelas="$3" >Hapus</a>','id,id_tahun_ajaran,id_kelas');
         return $this->datatables->generate();
     }
     
     public function getAllDataKelasAnggota($limit, $offset)
     {
         $th_ajar = $this->session->userdata('th_ajaran');
-        $this->db->select('a.id,a.id_kelas_detail,a.nisn,e.nama_lengkap as nama_siswa,e.jk,f.kelas,f.nama_kelas,d.nama_lengkap as nama_guru');
+        $this->db->select('a.id,a.id_kelas_detail,a.nisn,e.nama_lengkap as nama_siswa,e.jk,f.kelas,f.nama_kelas');
         $this->db->from('kelas_anggota a');
         $this->db->join('kelas_detail b' , 'a.id_kelas_detail = b.id');
         $this->db->join('tahun_ajaran c' , 'b.id_tahun_ajaran = c.id');
-        $this->db->join('guru d' , 'b.id_guru = d.id');
+      
         $this->db->join('siswa e' , 'a.nisn = e.nisn');
         $this->db->join('kelas f' , 'b.id_kelas=f.id');
         $this->db->where('c.id', $th_ajar);
@@ -64,23 +63,20 @@ class M_Kelas extends CI_Model {
         $query = $this->db->get();
         return $query->result();
     }
-     public function get_wali_kelas($kelas, $nama_kelas)
+     public function getWaliKelas()
      {
         
         $th_ajar = $this->session->userdata('th_ajaran');
-        $this->db->select('d.nama_lengkap as nama_guru');
-        $this->db->from('kelas_anggota a');
+
+        $this->db->select('*');
+        $this->db->from('wali_kelas a');
         $this->db->join('kelas_detail b' , 'a.id_kelas_detail = b.id');
-        $this->db->join('tahun_ajaran c' , 'b.id_tahun_ajaran = c.id');
-        $this->db->join('guru d' , 'b.id_guru = d.id');
-        $this->db->join('siswa e' , 'a.nisn = e.nisn');
-        $this->db->join('kelas f' , 'b.id_kelas=f.id');
-        $this->db->where('c.id', $th_ajar);
-        $this->db->where('f.kelas', $kelas);
-        $this->db->where('f.nama_kelas', $nama_kelas);
-        $this->db->group_by('f.nama_kelas');
-         $query =$this->db->get();
-         return $query->result();
+        $this->db->join('guru c' , 'a.id_guru = c.id');
+        $this->db->join('kelas d' , 'b.id_kelas = d.id');
+        $this->db->join('tahun_ajaran e' , 'b.id_tahun_ajaran = e.id');
+        $this->db->where('b.id_tahun_ajaran', $th_ajar);
+        $query =$this->db->get();
+        return $query->result();
      }
     public function get_tahun_ajaran_title()
     {
@@ -104,22 +100,21 @@ class M_Kelas extends CI_Model {
     }
 
     //add By APL-SOL
-    public function search_data($kelas, $nama_kelas,$limit, $offset) 
+    public function search_data($nama_kelas,$limit, $offset) 
     {
 
         $th_ajar = $this->session->userdata('th_ajaran');
 
-        $this->db->select('a.id,a.id_kelas_detail,a.nisn,e.nama_lengkap as nama_siswa,e.jk,f.kelas,f.nama_kelas,d.nama_lengkap as nama_guru');
+        $this->db->select('a.id,a.id_kelas_detail,a.nisn,e.nama_lengkap as nama_siswa,e.jk,f.kelas,f.nama_kelas');
         $this->db->from('kelas_anggota a');
         $this->db->join('kelas_detail b' , 'a.id_kelas_detail = b.id');
         $this->db->join('tahun_ajaran c' , 'b.id_tahun_ajaran = c.id');
-        $this->db->join('guru d' , 'b.id_guru = d.id');
+      
         $this->db->join('siswa e' , 'a.nisn = e.nisn');
         $this->db->join('kelas f' , 'b.id_kelas=f.id');
         $this->db->where('c.id', $th_ajar);
-    
-        $this->db->where('f.kelas', $kelas);
-        $this->db->where('f.nama_kelas', $nama_kelas); 
+
+        $this->db->where('f.id', $nama_kelas); 
         $this->db->limit($limit, $offset);
         $query = $this->db->get();
         if($query->num_rows() > 0 ){
@@ -132,22 +127,20 @@ class M_Kelas extends CI_Model {
     //end add
 
       //add By APL-SOL
-    public function getHeaderKelas($kelas, $nama_kelas) 
+    public function getHeaderKelas($nama_kelas) 
     {
 
         $th_ajar = $this->session->userdata('th_ajaran');
 
-        $this->db->select('a.id,a.id_kelas_detail,a.nisn,e.nama_lengkap as nama_siswa,e.jk,f.kelas,f.nama_kelas,d.nama_lengkap as nama_guru, c.nama_ta');
+        $this->db->select('a.id,a.id_kelas_detail,a.nisn,e.nama_lengkap as nama_siswa,e.jk,f.kelas,f.nama_kelas,c.nama_ta');
         $this->db->from('kelas_anggota a');
         $this->db->join('kelas_detail b' , 'a.id_kelas_detail = b.id');
         $this->db->join('tahun_ajaran c' , 'b.id_tahun_ajaran = c.id');
-        $this->db->join('guru d' , 'b.id_guru = d.id');
         $this->db->join('siswa e' , 'a.nisn = e.nisn');
         $this->db->join('kelas f' , 'b.id_kelas=f.id');
         $this->db->where('c.id', $th_ajar);
     
-        $this->db->where('f.kelas', $kelas);
-        $this->db->where('f.nama_kelas', $nama_kelas); 
+        $this->db->where('f.id', $nama_kelas); 
         $this->db->group_by('f.nama_kelas');
         $query = $this->db->get();
         if($query->num_rows() > 0 ){

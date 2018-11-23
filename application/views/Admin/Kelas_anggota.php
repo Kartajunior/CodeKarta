@@ -42,27 +42,37 @@ section .header-custom-box .table-judul-konten{
                             }
                         </script> 
               </div>
-             
+              
+              <!-- modal add new  -->
+              <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModalAdd" class="modal fade">
+                  <div class="modal-dialog">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                              <h4 class="modal-title">Tambah Nilai Pelajaran</h4>
+                          </div>
+                         
+                         
+                      </div>
+                  </div>
+              </div>
+              <!--end modal add new -->
+
               <div class="container-fluid header-custom-box">
                  <form action="<?php echo base_url().'Kelas_anggota/getByKelas'; ?>" method="post">  
                
-                    <div class="col-md-3">
-                        <select class="text-center form-control" id="kelas" name="kelas"  onchange="selectKelas()">
+                  <div class="col-md-3">
+                        <select class="text-center form-control" id="nama_kelas" name="nama_kelas"  onchange="selectKelas()">
                           <option value=" ">Select Kelas</option>
-                              <?php foreach($m_kel as $row){ ?>
-                                <?php $selected = (isset($_REQUEST['kelas']) && $_REQUEST['kelas'] == $row->kelas)?'selected="selected"':''; ?>
-                                <option value="<?php echo $row->kelas;?>" <?php echo $selected ?>>Kelas <?php echo $row->kelas; ?></option>
+                              <?php foreach($m_kelas as $row){ ?>
+                                <?php $selected = (isset($_REQUEST['nama_kelas']) && $_REQUEST['nama_kelas'] == $row->id)?'selected="selected"':''; ?>
+                                <option value="<?php echo $row->id;?>" <?php echo $selected ?>>Kelas <?php echo $row->nama_kelas; ?></option>
                               <?php } ?>
 
                         </select>
                     </div>
 
-                    <div class="col-md-3">
-                        <select class="text-center form-control" id="nama_kelas" name="nama_kelas" >
-                            <option value=""> Select Nama Kelas </option>
-                           
-                        </select>
-                    </div>      
+                   
 
                     <div class="col-md-2">
                         <button type="submit" class="btn btn-primary" id="submit" name="submit">Pilih</button>
@@ -70,54 +80,12 @@ section .header-custom-box .table-judul-konten{
 
                 </form>
 
-                 <div class="col-md-12 table-judul-konten">
-                  <?php foreach ($header as $wal): ?>
-                    <div class="col-md-6">
-                        <div class="col-md-3">
-                        Kelas 
-                        </div>
-                        <div class="col-md-3">
-                        : <?php echo $wal->kelas; ?>
-                        </div>
-                    </div>
-                   
-                    <div class="col-md-6">
-                        <div class="col-md-3">
-                        Wali Kelas 
-                        </div>
-                        <div class="col-md-3">
-                        :   
-                            <?php echo $wal->nama_guru; ?>
-                           
-                      
-                        </div>
-                    </div>
-                        <div class="col-md-6">
-                        <div class="col-md-3">
-                        Nama Kelas 
-                        </div>
-                        <div class="col-md-3">
-                        :  <?php echo $wal->nama_kelas; ?>
-                        </div>
-                    </div>
-                     <div class="col-md-6">
-                        <div class="col-md-3">
-                        Tahun Ajaran 
-                        </div>
-                        <div class="col-md-3">
-                        : <?php echo $wal->nama_ta; ?>
-                        </div>
-                    </div>
-                 </div>
-
-               <?php endforeach; ?>
+                
               </div>
              
 
               <div class="box-body">
                 <div id="interactive">
-
-                   
 
                     <?=$this->session->flashdata('notif')?>
                     <table id="example1" class="table table-striped table-bordered" style="width:100%">
@@ -173,23 +141,4 @@ section .header-custom-box .table-judul-konten{
     })
     
   </script>
-
-<script>
-  function selectKelas()
-    {
-       var kelas = $('#kelas').val();
-        
-        $.post('<?php echo base_url();?>Kelas_anggota/getNamaKelas/',
-      {
-        kelas:kelas
-        
-        },
-        function(data) 
-        {
-        
-        $('#nama_kelas').html(data);
-        }); 
-     
-    }
-</script>
 

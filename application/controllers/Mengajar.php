@@ -17,7 +17,7 @@ class Mengajar extends CI_Controller {
 	//edit apl sol
 	public function index()
 	{
-        $kelas=$this->input->post("kelas");
+        
         $nama_kelas=$this->input->post("nama_kelas");
        
 		$data['judul']		='Data Pengajar ';
@@ -59,17 +59,7 @@ class Mengajar extends CI_Controller {
 		$this->template->load('Admin/layout','Admin/Mengajar',$data);
     }
 
-    function getNamaKelas()
-	{
-	        
-            $query = $this->M_Kelas->get_nama_kelas();
-	        
-	        echo '<option value=""> Select Nama Kelas </option>';
-                foreach($query->result() as $row)
-                { 
-                 echo "<option value='".$row->nama_kelas."'>".$row->nama_kelas."</option>";
-                }
-	}
+   
 
 		//edit apl sol
 	public function getByKelas()
@@ -83,10 +73,6 @@ class Mengajar extends CI_Controller {
 
 
 		$config = array();
-
-		$kelas = $this->input->post('kelas');
-		if ($kelas === null) $kelas = $this->session->userdata('kelas');
-		else $this->session->set_userdata('kelas',$kelas);
 
 		$nama_kelas = $this->input->post('nama_kelas');
 		if ($nama_kelas === null) $nama_kelas = $this->session->userdata('nama_kelas');
@@ -121,7 +107,7 @@ class Mengajar extends CI_Controller {
 	 	$offset = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 	 	$limit = $config["per_page"];
 	 	$data["links"] = $this->pagination->create_links();
-	 	$data['m_mengajar'] = $this->M_Mengajar->getByKelas($kelas, $nama_kelas, $limit, $offset);
+	 	$data['m_mengajar'] = $this->M_Mengajar->getByKelas($nama_kelas, $limit, $offset);
 	    
 		$this->template->load('Admin/layout','Admin/Mengajar',$data);
     }

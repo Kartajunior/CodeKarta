@@ -21,7 +21,7 @@ class Tahun_ajaran extends CI_Controller {
 		echo $this->M_Tahun_ajaran->get_all_data();
 	}
 
-	public function tambah(){
+	public function Tambah(){
 
 		$this->form_validation->set_rules('tahun_ajaran', 'tahun_ajaran', 'required');
         $this->form_validation->set_rules('semester', 'semester', 'required');

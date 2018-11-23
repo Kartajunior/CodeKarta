@@ -49,22 +49,17 @@ section .header-custom-box .table-judul-konten{
              <form action="<?php echo base_url().'Mengajar/getByKelas'; ?>" method="post">  
                
                     <div class="col-md-3">
-                        <select class="text-center form-control" id="kelas" name="kelas"  onchange="selectKelas()">
+                        <select class="text-center form-control" id="nama_kelas" name="nama_kelas"  onchange="selectKelas()">
                           <option value=" ">Select Kelas</option>
-                              <?php foreach($m_kel as $row){ ?>
-                                <?php $selected = (isset($_REQUEST['kelas']) && $_REQUEST['kelas'] == $row->kelas)?'selected="selected"':''; ?>
-                                <option value="<?php echo $row->kelas;?>" <?php echo $selected ?>>Kelas <?php echo $row->kelas; ?></option>
+                              <?php foreach($m_kelas as $row){ ?>
+                                <?php $selected = (isset($_REQUEST['nama_kelas']) && $_REQUEST['nama_kelas'] == $row->id)?'selected="selected"':''; ?>
+                                <option value="<?php echo $row->id;?>" <?php echo $selected ?>>Kelas <?php echo $row->nama_kelas; ?></option>
                               <?php } ?>
 
                         </select>
                     </div>
 
-                    <div class="col-md-3">
-                        <select class="text-center form-control" id="nama_kelas" name="nama_kelas" >
-                            <option value=""> Select Nama Kelas </option>
-                           
-                        </select>
-                    </div>      
+                   
 
                     <div class="col-md-2">
                         <button type="submit" class="btn btn-primary" id="submit" name="submit">Pilih</button>
@@ -132,23 +127,5 @@ section .header-custom-box .table-judul-konten{
     
   </script>
 
-<script>
-  function selectKelas()
-    {
-       var kelas = $('#kelas').val();
-        
-        $.post('<?php echo base_url();?>Mengajar/getNamaKelas/',
-      {
-        kelas:kelas
-        
-        },
-        function(data) 
-        {
-        
-        $('#nama_kelas').html(data);
-        }); 
-     
-    }
-</script>
 
 

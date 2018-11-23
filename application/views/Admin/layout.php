@@ -30,6 +30,7 @@
   
   <link rel="stylesheet" href="<?php echo base_url();?>assets/layout/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo base_url();?>assets/custom.css">
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/layout/datetime/css/bootstrap-datetimepicker.min.css">
 
 </head>
 
@@ -145,6 +146,7 @@
               <ul class="treeview-menu">
                 <li><a href="<?php echo base_url().'Kelas_Data'?>"><i class="fa fa-circle-o"></i> Kelas Data</a></li>
                 <li><a href="<?php echo base_url().'Kelas_Anggota'?>"><i class="fa fa-circle-o"></i> Kelas Anggota</a></li>
+                <li><a href="<?php echo base_url().'Wali_Kelas'?>"><i class="fa fa-circle-o"></i> Wali Kelas</a></li>
               </ul>
             </li>
 
@@ -164,6 +166,31 @@
             
             <li><a href="<?php echo base_url().'Absensi'?>"><i class="fa fa-circle-o"></i> Absensi</a></li>  
 
+             <li class="treeview">
+              <a href="#"><i class="fa fa-circle-o"></i> Pelajaran
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+               <li><a href="<?php echo base_url().'Nilai_Pelajaran'?>"><i class="fa fa-circle-o"></i> Nilai Pelajaran</a></li>  
+            <li><a href="<?php echo base_url().'Mengajar'?>"><i class="fa fa-circle-o"></i> Guru Pelajaran</a></li> 
+              </ul>
+            </li>
+
+             <li class="treeview">
+              <a href="#"><i class="fa fa-circle-o"></i> Jadwal
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="<?php echo base_url().'Sesi'?>"><i class="fa fa-circle-o"></i> Sesi</a></li>
+                <li><a href="<?php echo base_url().'Jadwal'?>"><i class="fa fa-circle-o"></i> Jadwal</a></li>
+               
+              </ul>
+            </li>
+             
           </ul>
         </li>  
       
@@ -230,5 +257,25 @@
 <!-- DataTables -->
 <script src="<?php echo base_url();?>assets/layout/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?php echo base_url();?>assets/layout/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script src="<?php echo base_url();?>assets/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/layout/datetime/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<?php echo base_url();?>assets/layout/datetime/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+
+<script type="text/javascript">
+
+  $('.form_time').datetimepicker({
+        language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 1,
+    minView: 0,
+    maxView: 1,
+    forceParse: 0
+    });
+</script>
+
+
 </body>
 </html>

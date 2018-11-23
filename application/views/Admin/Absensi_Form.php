@@ -127,6 +127,7 @@ section .header-custom-box .table-judul-konten{
                             <th>NISN</th>
                             <th>NIS</th>
                             <th>Nama Lengkap</th>
+                            <th>Kelas</th>
                             <th>Sakit</th> 
                             <th>Ijin</th>
                             <th>Alpa</th>    
@@ -137,16 +138,11 @@ section .header-custom-box .table-judul-konten{
                           $kelas = $this->input->post('kelas');
                           if ($kelas === null) $kelas = $this->session->userdata('kelas');
                           else $this->session->set_userdata('kelas',$kelas);
-
                           $nama_kelas = $this->input->post('nama_kelas');
                           if ($nama_kelas === null) $nama_kelas = $this->session->userdata('nama_kelas');
                           else $this->session->set_userdata('nama_kelas',$nama_kelas);
-
                             $th_ajar = $this->session->userdata('th_ajaran');
                             $query = 
-
-
-
                             $this->db->select('a.id as id, a.id_kelas_anggota as id_kelas_anggota , a.sakit, a.ijin, a.alpa, d.kelas, d.nama_kelas, e.nama_ta, e.semester, f.nisn, f.nis, f.nama_lengkap as nama_siswa, g.nama_lengkap as nama_guru');
                             $this->db->from('absensi a');
                             $this->db->join('kelas_anggota b', 'a.id_kelas_anggota = b.id');
@@ -170,6 +166,7 @@ section .header-custom-box .table-judul-konten{
                           <td><?php echo $row['nisn'];?></td>
                           <td><?php echo $row['nis'];?></td>
                           <td><?php echo $row['nama_siswa'];?></td>
+                          <td><?php echo $row['nama_kelas'];?></td>
                           <td>
                                <input type="hidden" id="id" name="id[]" value="<?php echo $row['id']; ?>">
                                
@@ -240,5 +237,3 @@ section .header-custom-box .table-judul-konten{
      
     }
 </script>
-
-

@@ -20,6 +20,12 @@ class M_Guru extends CI_Model {
         return $this->datatables->generate();
     }
 
+    public function get_guru()
+    {
+      $query = $this->db->where('jabatan', 'guru')->get('guru');
+      return $query->result();
+    }
+
     public function get_detail($id){
     
       $this->db->select('*');

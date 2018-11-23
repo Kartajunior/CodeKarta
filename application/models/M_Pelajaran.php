@@ -17,4 +17,12 @@ class M_Pelajaran extends CI_Model {
 		return $this->db->get_where($table,$where);
 	}
 
+    public function get_all_pelajaran(){
+        
+        $this->db->select('*');      
+        $this->db->from('pelajaran');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 }

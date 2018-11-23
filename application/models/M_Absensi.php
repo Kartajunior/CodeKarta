@@ -1,12 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class M_Absensi extends CI_Model {
-
      public function GetAllAbsensi($limit, $offset) {
          
         $th_ajar = $this->session->userdata('th_ajaran');
-
        $this->db->select('a.id as id, a.id_kelas_anggota as id_kelas_anggota , a.sakit, a.ijin, a.alpa, d.kelas, d.nama_kelas, e.nama_ta, e.semester, f.nisn, f.nis, f.nama_lengkap as nama_siswa, g.nama_lengkap as nama_guru');
         $this->db->from('absensi a');
         $this->db->join('kelas_anggota b', 'a.id_kelas_anggota = b.id');
@@ -24,7 +21,6 @@ class M_Absensi extends CI_Model {
      public function countall()
     {
          $th_ajar = $this->session->userdata('th_ajaran');
-
        $this->db->select('a.id as id, a.id_kelas_anggota as id_kelas_anggota , a.sakit, a.ijin, a.alpa, d.kelas, d.nama_kelas, e.nama_ta, e.semester, f.nisn, f.nis, f.nama_lengkap as nama_siswa, g.nama_lengkap as nama_guru');
         $this->db->from('absensi a');
         $this->db->join('kelas_anggota b', 'a.id_kelas_anggota = b.id');
@@ -34,17 +30,13 @@ class M_Absensi extends CI_Model {
         $this->db->join('siswa f', 'b.nisn = f.nisn');
         $this->db->join('guru g', 'c.id_guru = g.id');
         $this->db->where('e.id', $th_ajar);
-
        $query = $this->db->get();
        return $query->num_rows();
     }
-
      //add By APL-SOL
     public function GetByKelas($kelas, $nama_kelas) 
     {
-
         $th_ajar = $this->session->userdata('th_ajaran');
-
         $this->db->select('a.id as id, a.id_kelas_anggota as id_kelas_anggota , a.sakit, a.ijin, a.alpa, d.kelas, d.nama_kelas, e.nama_ta, e.semester, f.nisn, f.nis, f.nama_lengkap as nama_siswa, g.nama_lengkap as nama_guru');
         $this->db->from('absensi a');
         $this->db->join('kelas_anggota b', 'a.id_kelas_anggota = b.id');
@@ -67,5 +59,4 @@ class M_Absensi extends CI_Model {
      }
     
     //end add
-
 }

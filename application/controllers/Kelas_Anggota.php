@@ -60,17 +60,6 @@ class Kelas_Anggota extends CI_Controller {
 	}
 	//end edit
 	
-	function getNamaKelas()
-	{
-	        
-            $query = $this->M_Kelas->get_nama_kelas();
-	        
-	        echo '<option value=""> Select Nama Kelas </option>';
-                foreach($query->result() as $row)
-                { 
-                 echo "<option value='".$row->nama_kelas."'>".$row->nama_kelas."</option>";
-                }
-	}
 	
 	public function GetDataAnggotaKelas()
 	{
@@ -94,10 +83,6 @@ class Kelas_Anggota extends CI_Controller {
 		$data['header'] = $this->M_Kelas->getHeaderKelas($kelas,$nama_kelas);
 		
 		$config = array();
-
-		$kelas = $this->input->post('kelas');
-		if ($kelas === null) $kelas = $this->session->userdata('kelas');
-		else $this->session->set_userdata('kelas',$kelas);
 
 		$nama_kelas = $this->input->post('nama_kelas');
 		if ($nama_kelas === null) $nama_kelas = $this->session->userdata('nama_kelas');
@@ -131,7 +116,7 @@ class Kelas_Anggota extends CI_Controller {
 	 	$offset = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 	 	$limit = $config["per_page"];
 	 	$data["links"] = $this->pagination->create_links();
-	 	$data['m_kelas_anggota'] = $this->M_Kelas->search_data($kelas, $nama_kelas, $limit, $offset);
+	 	$data['m_kelas_anggota'] = $this->M_Kelas->search_data($nama_kelas, $limit, $offset);
 	    
 		$this->template->load('Admin/layout','Admin/Kelas_Anggota',$data);
 		

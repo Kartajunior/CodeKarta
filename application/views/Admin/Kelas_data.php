@@ -40,7 +40,6 @@
                           
                             <th>Kelas</th>
                             <th>Nama Kelas</th>
-                            <th>Wali Kelas</th>
                             <th>Semester</th>
                             <th>Tahun Ajaran</th>
                             <th>Action</th>   
@@ -98,13 +97,13 @@
                 
                 {"data": "kelas"},
                 {"data": "nama_kelas"},
-                {"data": "nama_lengkap"},
+               
                 {"data": "semester"},
                 {"data": "nama_ta"},
                 {"data": "Action","width": "130"}
             ],
             "columnDefs": [ {
-            "targets": 2,
+            "targets": 4,
              "className": "text-center",
             "orderable": false
             } ]
